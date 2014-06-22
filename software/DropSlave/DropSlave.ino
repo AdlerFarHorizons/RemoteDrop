@@ -1,55 +1,64 @@
-// #include <AFMotor.h>
- 
-int sol1Pin = 2;
-int sol2Pin = 3;
-int sol3Pin = 4;
-int sol4Pin = 5;
-int sol5Pin = 6;
-
-int in;
-int cmd1, cmd2, cmd3;
-void setup() {
-  Serial.begin(9600);           // set up Serial library at 9600 bps
-  Serial.println("Drop Solenoid Driver");
+  
+  // Libraries
+  #include <SoftwareSerial.h>
+  #include <string.h>
+  
+  // mySerial pins
+  SoftwareSerial mySerial(12,13); // RX, TX
+  
+  void setup() {
+    Serial.begin(9600);
+    mySerial.begin(9600);
   }
- 
-void loop() {
-  while (Serial.available()) {
-    in = Serial.read();
-    Serial.print("received ");Serial.println(in);
-    cmd1 = in & 0x0003;
-    cmd2 = (in & 0x000C)/4;
-    cmd3 = (in & 0x0030)/16;
-    if ( cmd1 == 1 ) {
-      digitalWrite( sol1Pin, HIGH);
-      delay(1000);
-      digitalWrite( sol1Pin, LOW);
-  } else if ( cmd1 == 2 ) {
-      digitalWrite( sol2Pin, HIGH);
-      delay(1000);
-      digitalWrite( sol2Pin, LOW);
-  } else if ( cmd2 == 1 ) {
-      digitalWrite( sol3Pin, HIGH);
-      delay(1000);
-      digitalWrite( sol3Pin, LOW);
-  } else if ( cmd2 == 2 ) {
-      digitalWrite( sol4Pin, HIGH);
-      delay(1000);
-      digitalWrite( sol4Pin, LOW);
-  } else if ( cmd3 == 1) {
-      digitalWrite( solPin5, HIGH);
-      delay(1000);
-      digitalWrite( sol5Pin, LOW);
+  
+  void loop() {
+    String content = "";
+    char character;
+    
+    // Read code from DropMaster
+    while(mySerial.available()) {
+        character = mySerial.read();
+        content.concat(character);
+    }
+  
+    if (content != "") {
+      // Print code, set out to 0
+      Serial.println(content);
+      int out = 0;
+      
+      // Turn on LEDs corresponding to code
+      if(content.indexOf('1')!=-1)
+        digitalWrite(2,HIGH);
+      if(content.indexOf('2')!=-1)
+        digitalWrite(3,HIGH);
+      if(content.indexOf('3')!=-1)
+        digitalWrite(4,HIGH);
+      if(content.indexOf('4')!=-1)
+        digitalWrite(5,HIGH);
+      if(content.indexOf('5')!=-1)
+        digitalWrite(6,HIGH);
+      if(content.indexOf('6')!=-1)
+        digitalWrite(7,HIGH);
+      if(content.indexOf('7')!=-1)
+        digitalWrite(8,HIGH);
+      
+      // Wait for 2 seconds
+      delay(2000);
+            
+      // Turn off LEDs
+      if(content.indexOf('1')!=-1)
+        digitalWrite(2,LOW);
+      if(content.indexOf('2')!=-1)
+        digitalWrite(3,LOW);
+      if(content.indexOf('3')!=-1)
+        digitalWrite(4,LOW);
+      if(content.indexOf('4')!=-1)
+        digitalWrite(5,LOW);
+      if(content.indexOf('5')!=-1)
+        digitalWrite(6,LOW);
+      if(content.indexOf('6')!=-1)
+        digitalWrite(7,LOW);
+      if(content.indexOf('7')!=-1)
+        digitalWrite(8,LOW);
+    }
   }
-
-   delay( 200 );
-}
-
-// Activates solenoid.
-//void solActivate{
-//  digitalWrite(ledPin, HIGH);
-//  digitalWrite(sol1Pin, HIGH);
-//  delay(1000);
-//  digitalWrite(sol1Pin, LOW);
-//  digitalWrite(ledPin, LOW);  
-}
