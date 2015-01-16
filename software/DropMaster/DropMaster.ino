@@ -8,7 +8,7 @@
   int sol4Pin = 5; // choose drop type
   int sol5Pin = 6; // choose drop type
   int sol6Pin = 7; // choose drop type
-  int sol7Pin = 7; // choose drop type
+  int sol7Pin = 8; // choose drop type
   int dropPin = 9; // drop button
   int armPin = 10; // arm button
   int dropLED = 11; // drop button LED
