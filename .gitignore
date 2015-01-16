@@ -8,3 +8,5 @@ temp/
 tmp/
 cache/
 .hg/
+/.project
+desktop.ini

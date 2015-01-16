@@ -9,16 +9,11 @@
   void setup() {
     Serial.begin(9600);
     mySerial.begin(9600);
-    for(int setPin=2; setPin<=11; setPin++){
-      pinMode(setPin,OUTPUT);
-    }
   }
   
   void loop() {
     String content = "";
     char character;
-    
-    // Read code from DropMaster
     while(mySerial.available()) {
         character = mySerial.read();
         content.concat(character);

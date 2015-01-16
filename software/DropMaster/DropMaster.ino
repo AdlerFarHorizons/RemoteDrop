@@ -8,7 +8,7 @@
   int sol4Pin = 5; // choose drop type
   int sol5Pin = 6; // choose drop type
   int sol6Pin = 7; // choose drop type
-  int sol7Pin = 8; // choose drop type
+  int sol7Pin = 7; // choose drop type
   int dropPin = 9; // drop button
   int armPin = 10; // arm button
   int dropLED = 11; // drop button LED
@@ -75,7 +75,7 @@
         // Send integer code over wifi (mySerial)
         code = sol7*7000000 + sol6*600000 + sol5*50000 + sol4*4000 + sol3*300 + sol2*20 + sol1;
         str = String(code);
-        str.toCharArray(c,8);
+        str.toCharArray(c,8f);
         mySerial.println(c);
       }
       
